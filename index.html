@@ -130,37 +130,37 @@ const GROUPS = {
 
 // w = Gewicht; phase1 = Bauch, phase2 = Kopf
 const QUESTIONS = [
-  {phase:1, q:"Eure Marke betritt einen Raum voller Menschen. Was passiert?", o:[
+  {phase:1, q:"Deine Marke betritt einen Raum voller Menschen. Was passiert?", o:[
     {t:"Sie wärmt den Raum — alle fühlen sich sofort willkommen.", s:{fuersorger:1, jedermann:1}},
     {t:"Sie bringt alle zum Lachen.", s:{narr:2}},
     {t:"Etwas Besonderes liegt in der Luft, Blicke wenden sich ihr zu.", s:{liebhaber:1, magier:1}},
     {t:"Sie übernimmt ruhig und selbstverständlich die Führung.", s:{herrscher:1, held:1}},
   ]},
-  {phase:1, q:"Was sollen eure Menschen am liebsten über euch sagen?", o:[
+  {phase:1, q:"Was sollen die Menschen in diesem Raum am liebsten über euch sagen?", o:[
     {t:"„Da bin ich sicher und gut aufgehoben.“", s:{fuersorger:1, unschuldige:1}},
     {t:"„Die bringen mich weiter — über mich hinaus.“", s:{held:1, weise:1}},
     {t:"„Die sind anders. Die trauen sich was.“", s:{rebell:1, entdecker:1}},
     {t:"„Mit denen ist das Leben schöner und leichter.“", s:{liebhaber:1, narr:1}},
   ]},
-  {phase:1, q:"Welcher Satz fühlt sich am meisten nach euch an?", o:[
+  {phase:1, q:"Welcher Satz fühlt sich am meisten nach dir an?", o:[
     {t:"„Das Gute ist ganz nah.“", s:{unschuldige:2}},
     {t:"„Wenn du es dir vorstellst, kannst du es erschaffen.“", s:{schoepfer:2}},
     {t:"„Lass dich nicht einsperren.“", s:{entdecker:2}},
     {t:"„Wo ein Wille ist, ist ein Weg.“", s:{held:2}},
   ]},
-  {phase:1, q:"Ein freier Nachmittag mit eurer Marke — was tut ihr?", o:[
+  {phase:1, q:"Imagine: Ein freier Nachmittag mit eurer Marke — was tut ihr?", o:[
     {t:"Etwas gestalten, bauen, werkeln.", s:{schoepfer:2}},
     {t:"Raus, etwas Neues entdecken.", s:{entdecker:2}},
     {t:"Wissen vertiefen, ein gutes Buch.", s:{weise:2}},
     {t:"Zeit mit den Liebsten, gut essen.", s:{liebhaber:1, jedermann:1}},
   ]},
-  {phase:1, q:"Wie redet ihr mit euren Menschen?", o:[
+  {phase:1, q:"Wie redet ihr mit euch anvertrauten Menschen?", o:[
     {t:"Warm und fürsorglich, wie eine gute Freundin.", s:{fuersorger:2}},
     {t:"Klar und souverän, mit Haltung.", s:{herrscher:2}},
     {t:"Verspielt und mit Augenzwinkern.", s:{narr:2}},
     {t:"Ehrlich und auf Augenhöhe, ganz normal.", s:{jedermann:2}},
   ]},
-  {phase:1, q:"Was bringt euch auf die Palme?", o:[
+  {phase:1, q:"Was bringt dich als Marke auf die Palme?", o:[
     {t:"Ungerechtigkeit und starre Regeln.", s:{rebell:2}},
     {t:"Oberflächlichkeit und Lieblosigkeit.", s:{liebhaber:1, fuersorger:1}},
     {t:"Stillstand und Mittelmäßigkeit.", s:{held:1, magier:1}},
@@ -172,26 +172,26 @@ const QUESTIONS = [
     {t:"Bei uns wird etwas Besonderes möglich.", s:{magier:1, schoepfer:1}},
     {t:"Bei uns gehörst du dazu.", s:{jedermann:1, liebhaber:1}},
   ]},
-  {phase:1, q:"Bauchgefühl: welches Bild zieht euch an?", o:[
+  {phase:1, q:"Bauchgefühl: welches Bild zieht dich als Marke an?", o:[
     {t:"Eine warme Küche, Licht, Menschen.", s:{fuersorger:1, jedermann:1}},
     {t:"Ein offener Horizont, ein Weg ins Weite.", s:{entdecker:2}},
     {t:"Eine Bühne, ein großer Moment.", s:{magier:1, herrscher:1}},
     {t:"Ein Garten im ersten Frühlingslicht.", s:{unschuldige:2}},
   ]},
   // ---- KOPF ----
-  {phase:2, q:"Was treibt euch im tiefsten Kern an?", note:"Die vier Sehnsüchte", o:[
+  {phase:2, q:"Was treibt dich im tiefsten Kern an?", note:"Die vier Sehnsüchte", o:[
     {t:"Dazugehören, verbinden, das Leben genießen.", s:{jedermann:3, liebhaber:3, narr:3}},
     {t:"Halt geben, ordnen, Bleibendes schaffen.", s:{fuersorger:3, herrscher:3, schoepfer:3}},
     {t:"Spuren hinterlassen, verändern, wachsen.", s:{held:3, rebell:3, magier:3}},
     {t:"Verstehen, frei sein, dem Sinn folgen.", s:{unschuldige:3, weise:3, entdecker:3}},
   ]},
-  {phase:2, q:"Wenn ihr nur eines haben könntet …", o:[
+  {phase:2, q:"Wenn du nur eines haben könntest …", o:[
     {t:"Geliebt werden.", s:{liebhaber:3, fuersorger:2}},
     {t:"Bewundert werden.", s:{herrscher:3, held:2}},
     {t:"Frei sein.", s:{entdecker:3, rebell:2}},
     {t:"Verstanden werden.", s:{weise:3, unschuldige:2}},
   ]},
-  {phase:2, q:"Eure größte Stärke ist …", o:[
+  {phase:2, q:"Deine größte Stärke ist …", o:[
     {t:"Wärme & Verlässlichkeit.", s:{fuersorger:2, jedermann:2}},
     {t:"Mut & Tatkraft.", s:{held:2, rebell:2}},
     {t:"Fantasie & Ausdruck.", s:{schoepfer:2, magier:2}},
