@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Studio S — Welcher Archetyp ist eure Marke?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Mulish:wght@400;600&family=Archivo:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFAF5; --ink:#000000; --mute:#8A8175; --ghost:#ECE3D8; --line:#000000;
+    /* Brand-Fonts zuerst, danach nahe Web-Fallbacks */
+    --f-head:"The Seasons","Cormorant Garamond",Georgia,serif;
+    --f-body:"TT Chocolate","Mulish","Helvetica Neue",Arial,sans-serif;
+    --f-label:"Aileron","Archivo","Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:var(--bg); color:var(--ink); font-family:var(--f-body);
+    -webkit-font-smoothing:antialiased; line-height:1.5;
+    display:flex; justify-content:center; padding:28px 20px;
+  }
+  .stage{
+    width:100%; max-width:920px; min-height:calc(100vh - 56px);
+    display:flex; flex-direction:column;
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    padding:26px 4px 22px;
+  }
+  .topbar{display:flex; justify-content:space-between; align-items:center; gap:16px}
+  .label{
+    font-family:var(--f-label); text-transform:uppercase; letter-spacing:.16em;
+    font-size:12px; color:var(--ink); font-weight:600;
+  }
+  .label.mute{color:var(--mute); font-weight:500}
+  .progress-wrap{flex:1; max-width:280px; height:1px; background:var(--ghost); position:relative}
+  .progress-bar{position:absolute; left:0; top:0; height:1px; background:var(--ink); width:0; transition:width .35s ease}
+
+  .content{flex:1; display:flex; flex-direction:column; justify-content:center; padding:24px 8px}
+  .phase-tag{font-family:var(--f-label); text-transform:uppercase; letter-spacing:.18em; font-size:12px; color:var(--mute); margin-bottom:14px}
+  h1{font-family:var(--f-head); font-weight:500; line-height:1.02; letter-spacing:.01em}
+  .q{font-family:var(--f-head); font-weight:500; font-size:clamp(28px,4.6vw,46px); line-height:1.06; max-width:18ch; margin-bottom:30px}
+
+  .options{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+  @media(max-width:640px){.options{grid-template-columns:1fr}}
+  .opt{
+    text-align:left; background:transparent; border:1px solid var(--ink);
+    padding:18px 20px; font-family:var(--f-body); font-size:16px; color:var(--ink);
+    cursor:pointer; transition:background .18s ease,color .18s ease,transform .18s ease;
+    line-height:1.35;
+  }
+  .opt:hover{background:var(--ink); color:var(--bg)}
+  .opt:active{transform:translateY(1px)}
+
+  /* Intro */
+  .intro h1{font-size:clamp(40px,8vw,82px); line-height:.96; margin-bottom:8px}
+  .intro .sub{font-family:var(--f-head); font-style:italic; font-size:clamp(20px,3vw,30px); color:var(--ink); margin-bottom:26px}
+  .intro p{max-width:54ch; font-size:16px; margin-bottom:14px}
+  .btn{
+    display:inline-block; margin-top:14px; background:var(--ink); color:var(--bg);
+    border:1px solid var(--ink); font-family:var(--f-label); text-transform:uppercase;
+    letter-spacing:.16em; font-size:13px; font-weight:600; padding:15px 30px; cursor:pointer;
+    transition:opacity .18s ease;
+  }
+  .btn:hover{opacity:.82}
+  .btn.ghost{background:transparent; color:var(--ink)}
+
+  /* Interstitial */
+  .inter .kicker{font-family:var(--f-label); text-transform:uppercase; letter-spacing:.18em; font-size:12px; color:var(--mute); margin-bottom:12px}
+  .inter h1{font-size:clamp(30px,5vw,52px); line-height:1.02; margin-bottom:18px}
+  .inter .name{font-style:italic}
+  .inter p{max-width:52ch; font-size:16px; margin-bottom:8px}
+
+  /* Result */
+  .result .kicker{font-family:var(--f-label); text-transform:uppercase; letter-spacing:.18em; font-size:12px; color:var(--mute); margin-bottom:10px}
+  .result h1{font-size:clamp(40px,7.5vw,76px); line-height:.98; margin-bottom:6px}
+  .result .core{font-family:var(--f-head); font-style:italic; color:var(--mute); font-size:clamp(15px,2.4vw,20px); margin-bottom:14px}
+  .result .motto{font-family:var(--f-head); font-style:italic; font-size:clamp(22px,3.4vw,34px); line-height:1.1; margin-bottom:22px}
+  .result .narrative{max-width:56ch; font-size:16px; margin-bottom:22px}
+  .blocks{display:grid; grid-template-columns:1fr 1fr; gap:18px 30px; border-top:1px solid var(--ghost); padding-top:18px; margin-bottom:22px}
+  @media(max-width:640px){.blocks{grid-template-columns:1fr}}
+  .blk .blk-l{font-family:var(--f-label); text-transform:uppercase; letter-spacing:.16em; font-size:11px; color:var(--mute); margin-bottom:5px}
+  .blk .blk-t{font-size:15px; line-height:1.4}
+  .ranks{margin-bottom:20px}
+  .rank-row{display:flex; align-items:center; gap:12px; margin-bottom:9px}
+  .rank-name{width:140px; flex:none; font-size:13px; font-family:var(--f-label); text-transform:uppercase; letter-spacing:.08em}
+  .rank-track{flex:1; height:6px; background:var(--ghost); position:relative}
+  .rank-fill{position:absolute; left:0; top:0; height:6px; background:var(--ink)}
+  .rank-val{width:34px; text-align:right; font-size:12px; color:var(--mute)}
+  .capture{border-top:1px solid var(--ghost); padding-top:16px; font-size:15px}
+  .capture .blk-l{font-family:var(--f-label); text-transform:uppercase; letter-spacing:.16em; font-size:11px; color:var(--mute); margin-bottom:8px}
+  .capture input{font-family:var(--f-head); font-size:22px; border:none; border-bottom:1px solid var(--ink); background:transparent; padding:4px 2px; width:min(360px,80%); color:var(--ink)}
+  .capture input:focus{outline:none}
+  .actions{display:flex; gap:12px; flex-wrap:wrap; margin-top:26px}
+  @media print{.actions,.progress-wrap{display:none}}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="topbar">
+    <span class="label">Branding Guide · Studio S</span>
+    <div class="progress-wrap"><div class="progress-bar" id="bar"></div></div>
+    <span class="label mute" id="step">Archetypen</span>
+  </div>
+  <div class="content" id="content"></div>
+</div>
+
+<script>
+const ARCH = {
+  unschuldige:{name:"Der Unschuldige", group:"unabhaengigkeit", core:"Reinheit · Optimismus · Urvertrauen", motto:"„Das Gute ist ganz nah.“", fit:"du Sicherheit, Reinheit und ein gutes Gefühl versprichst."},
+  weise:{name:"Der Weise", group:"unabhaengigkeit", core:"Wissen · Wahrheit · Orientierung", motto:"„Die Wahrheit macht frei.“", fit:"du Wissen vermittelst und Menschen Orientierung gibst."},
+  held:{name:"Der Held", group:"risiko", core:"Mut · Stärke · Wachstum", motto:"„Wo ein Wille ist, ist ein Weg.“", fit:"du Menschen motivierst, über sich hinauszuwachsen."},
+  rebell:{name:"Der Rebell", group:"risiko", core:"Wandel · Freiheit · Provokation", motto:"„Regeln sind zum Brechen da.“", fit:"du bewusst gegen den Strom schwimmst und Konventionen hinterfragst."},
+  magier:{name:"Der Magier", group:"risiko", core:"Transformation · Vision · Staunen", motto:"„Alles ist möglich.“", fit:"du aus einem Vorher ein staunenswertes Nachher machst."},
+  jedermann:{name:"Der Jedermann", group:"zugehoerigkeit", core:"Zugehörigkeit · Bodenständigkeit · Wärme", motto:"„Wir sind alle gleich.“", fit:"du für alle da bist, ohne abzuheben."},
+  liebhaber:{name:"Der Liebhaber", group:"zugehoerigkeit", core:"Verbindung · Schönheit · Tiefe", motto:"„Du bist der einzige Mensch für mich.“", fit:"du Schönheit, Genuss und echte Nähe in den Mittelpunkt stellst."},
+  narr:{name:"Der Narr", group:"zugehoerigkeit", core:"Freude · Leichtigkeit · Humor", motto:"„Wer lacht, lebt länger.“", fit:"du Leichtigkeit, Spaß und ein Augenzwinkern bringst."},
+  fuersorger:{name:"Der Fürsorger", group:"struktur", core:"Schutz · Fürsorge · Nähren", motto:"„Liebe deinen Nächsten.“", fit:"du Menschen Schutz, Halt und Geborgenheit gibst."},
+  schoepfer:{name:"Der Schöpfer", group:"struktur", core:"Kreativität · Ausdruck · Erschaffen", motto:"„Wenn du es dir vorstellst, kannst du es erschaffen.“", fit:"du Selbstausdruck, Gestaltung und Originalität ermöglichst."},
+  herrscher:{name:"Der Herrscher", group:"struktur", core:"Führung · Struktur · Sicherheit", motto:"„Souveränität schafft Sicherheit.“", fit:"du Premium, Verlässlichkeit und Führungsanspruch verkörperst."},
+  entdecker:{name:"Der Entdecker", group:"unabhaengigkeit", core:"Neugier · Freiheit · Entdeckung", motto:"„Lass dich nicht einsperren.“", fit:"du Freiheit, Abenteuer und Selbstfindung ermöglichst."},
+};
+const GROUPS = {
+  zugehoerigkeit:{label:"Zugehörigkeit & Genuss", members:["jedermann","liebhaber","narr"]},
+  struktur:{label:"Struktur & Sicherheit", members:["fuersorger","herrscher","schoepfer"]},
+  risiko:{label:"Risiko & Meisterschaft", members:["held","rebell","magier"]},
+  unabhaengigkeit:{label:"Unabhängigkeit & Sinn", members:["unschuldige","weise","entdecker"]},
+};
+
+// w = Gewicht; phase1 = Bauch, phase2 = Kopf
+const QUESTIONS = [
+  {phase:1, q:"Eure Marke betritt einen Raum voller Menschen. Was passiert?", o:[
+    {t:"Sie wärmt den Raum — alle fühlen sich sofort willkommen.", s:{fuersorger:1, jedermann:1}},
+    {t:"Sie bringt alle zum Lachen.", s:{narr:2}},
+    {t:"Etwas Besonderes liegt in der Luft, Blicke wenden sich ihr zu.", s:{liebhaber:1, magier:1}},
+    {t:"Sie übernimmt ruhig und selbstverständlich die Führung.", s:{herrscher:1, held:1}},
+  ]},
+  {phase:1, q:"Was sollen eure Menschen am liebsten über euch sagen?", o:[
+    {t:"„Da bin ich sicher und gut aufgehoben.“", s:{fuersorger:1, unschuldige:1}},
+    {t:"„Die bringen mich weiter — über mich hinaus.“", s:{held:1, weise:1}},
+    {t:"„Die sind anders. Die trauen sich was.“", s:{rebell:1, entdecker:1}},
+    {t:"„Mit denen ist das Leben schöner und leichter.“", s:{liebhaber:1, narr:1}},
+  ]},
+  {phase:1, q:"Welcher Satz fühlt sich am meisten nach euch an?", o:[
+    {t:"„Das Gute ist ganz nah.“", s:{unschuldige:2}},
+    {t:"„Wenn du es dir vorstellst, kannst du es erschaffen.“", s:{schoepfer:2}},
+    {t:"„Lass dich nicht einsperren.“", s:{entdecker:2}},
+    {t:"„Wo ein Wille ist, ist ein Weg.“", s:{held:2}},
+  ]},
+  {phase:1, q:"Ein freier Nachmittag mit eurer Marke — was tut ihr?", o:[
+    {t:"Etwas gestalten, bauen, werkeln.", s:{schoepfer:2}},
+    {t:"Raus, etwas Neues entdecken.", s:{entdecker:2}},
+    {t:"Wissen vertiefen, ein gutes Buch.", s:{weise:2}},
+    {t:"Zeit mit den Liebsten, gut essen.", s:{liebhaber:1, jedermann:1}},
+  ]},
+  {phase:1, q:"Wie redet ihr mit euren Menschen?", o:[
+    {t:"Warm und fürsorglich, wie eine gute Freundin.", s:{fuersorger:2}},
+    {t:"Klar und souverän, mit Haltung.", s:{herrscher:2}},
+    {t:"Verspielt und mit Augenzwinkern.", s:{narr:2}},
+    {t:"Ehrlich und auf Augenhöhe, ganz normal.", s:{jedermann:2}},
+  ]},
+  {phase:1, q:"Was bringt euch auf die Palme?", o:[
+    {t:"Ungerechtigkeit und starre Regeln.", s:{rebell:2}},
+    {t:"Oberflächlichkeit und Lieblosigkeit.", s:{liebhaber:1, fuersorger:1}},
+    {t:"Stillstand und Mittelmäßigkeit.", s:{held:1, magier:1}},
+    {t:"Unwahrheit und Halbwissen.", s:{weise:2}},
+  ]},
+  {phase:1, q:"Welches Versprechen gebt ihr am liebsten?", o:[
+    {t:"Bei uns bist du behütet.", s:{fuersorger:1, unschuldige:1}},
+    {t:"Bei uns wächst du.", s:{held:1, weise:1}},
+    {t:"Bei uns wird etwas Besonderes möglich.", s:{magier:1, schoepfer:1}},
+    {t:"Bei uns gehörst du dazu.", s:{jedermann:1, liebhaber:1}},
+  ]},
+  {phase:1, q:"Bauchgefühl: welches Bild zieht euch an?", o:[
+    {t:"Eine warme Küche, Licht, Menschen.", s:{fuersorger:1, jedermann:1}},
+    {t:"Ein offener Horizont, ein Weg ins Weite.", s:{entdecker:2}},
+    {t:"Eine Bühne, ein großer Moment.", s:{magier:1, herrscher:1}},
+    {t:"Ein Garten im ersten Frühlingslicht.", s:{unschuldige:2}},
+  ]},
+  // ---- KOPF ----
+  {phase:2, q:"Was treibt euch im tiefsten Kern an?", note:"Die vier Sehnsüchte", o:[
+    {t:"Dazugehören, verbinden, das Leben genießen.", s:{jedermann:3, liebhaber:3, narr:3}},
+    {t:"Halt geben, ordnen, Bleibendes schaffen.", s:{fuersorger:3, herrscher:3, schoepfer:3}},
+    {t:"Spuren hinterlassen, verändern, wachsen.", s:{held:3, rebell:3, magier:3}},
+    {t:"Verstehen, frei sein, dem Sinn folgen.", s:{unschuldige:3, weise:3, entdecker:3}},
+  ]},
+  {phase:2, q:"Wenn ihr nur eines haben könntet …", o:[
+    {t:"Geliebt werden.", s:{liebhaber:3, fuersorger:2}},
+    {t:"Bewundert werden.", s:{herrscher:3, held:2}},
+    {t:"Frei sein.", s:{entdecker:3, rebell:2}},
+    {t:"Verstanden werden.", s:{weise:3, unschuldige:2}},
+  ]},
+  {phase:2, q:"Eure größte Stärke ist …", o:[
+    {t:"Wärme & Verlässlichkeit.", s:{fuersorger:2, jedermann:2}},
+    {t:"Mut & Tatkraft.", s:{held:2, rebell:2}},
+    {t:"Fantasie & Ausdruck.", s:{schoepfer:2, magier:2}},
+    {t:"Leichtigkeit & Freude.", s:{narr:2, liebhaber:2}},
+  ]},
+];
+
+const PHASE1_COUNT = QUESTIONS.filter(q=>q.phase===1).length;
+let idx = 0;
+let scores = {};
+let bauchTop = null;
+Object.keys(ARCH).forEach(k=>scores[k]=0);
+
+const content = document.getElementById('content');
+const bar = document.getElementById('bar');
+const step = document.getElementById('step');
+
+function setProgress(done, total){ bar.style.width = (100*done/total) + '%'; }
+
+function topN(obj, n){
+  return Object.entries(obj).sort((a,b)=>b[1]-a[1]).slice(0,n).map(e=>({key:e[0], val:e[1]}));
+}
+
+function renderIntro(){
+  step.textContent = "Archetypen";
+  setProgress(0,1);
+  content.className = "content intro";
+  content.innerHTML = `
+    <div class="phase-tag">Welcher Archetyp ist eure Marke?</div>
+    <h1>Erst der<br>Bauch.</h1>
+    <div class="sub">Dann der Kopf.</div>
+    <p>Dieses Quiz führt euch in zwei Schritten zu eurem Marken-Archetyp. Zuerst folgt ihr eurem Instinkt — antwortet schnell, nicht klug. Danach ein paar Fragen, die euer Bauchgefühl bestätigen oder sanft verschieben.</p>
+    <p>Es gibt kein richtig oder falsch. Nur das, was sich wahr anfühlt.</p>
+    <button class="btn" id="start">Los geht’s</button>
+  `;
+  document.getElementById('start').onclick = ()=>{ idx=0; renderQuestion(); };
+}
+
+function renderQuestion(){
+  const total = QUESTIONS.length;
+  const Q = QUESTIONS[idx];
+  setProgress(idx, total);
+  step.textContent = (idx+1) + " / " + total;
+  content.className = "content question";
+  const tag = Q.phase===1 ? "Teil 1 · Bauchgefühl" : (Q.note ? "Teil 2 · Kopf — " + Q.note : "Teil 2 · Kopf");
+  content.innerHTML = `
+    <div class="phase-tag">${tag}</div>
+    <div class="q">${Q.q}</div>
+    <div class="options">
+      ${Q.o.map((o,i)=>`<button class="opt" data-i="${i}">${o.t}</button>`).join("")}
+    </div>
+  `;
+  content.querySelectorAll('.opt').forEach(btn=>{
+    btn.onclick = ()=>{
+      const o = Q.o[parseInt(btn.dataset.i,10)];
+      for(const k in o.s){ scores[k]+=o.s[k]; }
+      idx++;
+      if(idx === PHASE1_COUNT){ bauchTop = topN(scores,1)[0].key; renderInterstitial(); }
+      else if(idx >= QUESTIONS.length){ renderResult(); }
+      else { renderQuestion(); }
+    };
+  });
+}
+
+function renderInterstitial(){
+  setProgress(PHASE1_COUNT, QUESTIONS.length);
+  step.textContent = "Zwischenstand";
+  content.className = "content inter";
+  const a = ARCH[bauchTop];
+  content.innerHTML = `
+    <div class="kicker">Euer Bauch zeigt auf …</div>
+    <h1 class="name">${a.name}</h1>
+    <p style="font-family:var(--f-head);font-style:italic;font-size:clamp(18px,2.6vw,24px);margin:6px 0 18px">${a.core}</p>
+    <p>Schön. Haltet dieses Gefühl kurz fest. Jetzt kommen drei Fragen für den Kopf — sie prüfen, ob euer Instinkt trägt oder euch zu einem Nachbarn führt.</p>
+    <button class="btn" id="cont">Weiter zum Kopf</button>
+  `;
+  document.getElementById('cont').onclick = ()=>{ renderQuestion(); };
+}
+
+function renderResult(){
+  setProgress(QUESTIONS.length, QUESTIONS.length);
+  step.textContent = "Ergebnis";
+  content.className = "content result";
+  const ranked = topN(scores, 3);
+  const winner = ranked[0].key;
+  const a = ARCH[winner];
+  const max = ranked[0].val || 1;
+
+  let narrative;
+  if(winner === bauchTop){
+    narrative = `Bauch und Kopf sind sich einig: <strong>${a.name}</strong>. Das ist ein starkes Zeichen — eure Marke weiß ziemlich genau, wer sie ist.`;
+  } else {
+    narrative = `Spannend: Euer Bauch zeigte zuerst auf <em>${ARCH[bauchTop].name}</em>. Nach den Kopf-Fragen steht aber <strong>${a.name}</strong> ganz vorne. Beide stecken in euch — sprecht im Workshop darüber, welcher sich wahrer anfühlt.`;
+  }
+
+  const rankRows = ranked.map(r=>{
+    const pct = Math.round(100*r.val/max);
+    return `<div class="rank-row">
+      <div class="rank-name">${ARCH[r.key].name.replace('Der ','')}</div>
+      <div class="rank-track"><div class="rank-fill" style="width:${pct}%"></div></div>
+      <div class="rank-val">${r.val}</div>
+    </div>`;
+  }).join("");
+
+  content.innerHTML = `
+    <div class="kicker">Euer Archetyp</div>
+    <h1>${a.name}</h1>
+    <div class="core">${a.core}</div>
+    <div class="motto">${a.motto}</div>
+    <p class="narrative">${narrative}</p>
+    <div class="blocks">
+      <div class="blk"><div class="blk-l">Passt zu euch, wenn …</div><div class="blk-t">${a.fit}</div></div>
+      <div class="blk"><div class="blk-l">Eure Sehnsucht</div><div class="blk-t">${GROUPS[a.group].label}</div></div>
+    </div>
+    <div class="ranks">
+      <div class="blk-l" style="font-family:var(--f-label);text-transform:uppercase;letter-spacing:.16em;font-size:11px;color:var(--mute);margin-bottom:10px">Eure Top 3</div>
+      ${rankRows}
+    </div>
+    <div class="capture">
+      <div class="blk-l">Tragt euren Archetyp in den Branding Guide ein</div>
+      <input type="text" id="mine" value="${a.name}" aria-label="Mein Archetyp">
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="window.print()">Ergebnis speichern / drucken</button>
+      <button class="btn ghost" id="again">Nochmal</button>
+    </div>
+  `;
+  document.getElementById('again').onclick = ()=>{
+    Object.keys(scores).forEach(k=>scores[k]=0); idx=0; bauchTop=null; renderIntro();
+  };
+}
+
+renderIntro();
+</script>
+</body>
+</html>
