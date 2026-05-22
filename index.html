@@ -262,10 +262,10 @@ function renderInterstitial(){
   content.className = "content inter";
   const a = ARCH[bauchTop];
   content.innerHTML = `
-    <div class="kicker">Euer Bauch zeigt auf …</div>
+    <div class="kicker">Dein Bauch zeigt auf …</div>
     <h1 class="name">${a.name}</h1>
     <p style="font-family:var(--f-head);font-style:italic;font-size:clamp(18px,2.6vw,24px);margin:6px 0 18px">${a.core}</p>
-    <p>Schön. Haltet dieses Gefühl kurz fest. Jetzt kommen drei Fragen für den Kopf — sie prüfen, ob euer Instinkt trägt oder euch zu einem Nachbarn führt.</p>
+    <p>Schön. Halte dieses Gefühl kurz fest. Jetzt kommen drei Fragen für den Kopf — sie prüfen, ob dein Instinkt trägt oder euch zu einem Nachbarn führt.</p>
     <button class="btn" id="cont">Weiter zum Kopf</button>
   `;
   document.getElementById('cont').onclick = ()=>{ renderQuestion(); };
@@ -284,7 +284,7 @@ function renderResult(){
   if(winner === bauchTop){
     narrative = `Bauch und Kopf sind sich einig: <strong>${a.name}</strong>. Das ist ein starkes Zeichen — eure Marke weiß ziemlich genau, wer sie ist.`;
   } else {
-    narrative = `Spannend: Euer Bauch zeigte zuerst auf <em>${ARCH[bauchTop].name}</em>. Nach den Kopf-Fragen steht aber <strong>${a.name}</strong> ganz vorne. Beide stecken in euch — sprecht im Workshop darüber, welcher sich wahrer anfühlt.`;
+    narrative = `Spannend: Dein Bauch zeigte zuerst auf <em>${ARCH[bauchTop].name}</em>. Nach den Kopf-Fragen steht aber <strong>${a.name}</strong> ganz vorne. Beide stecken in dir — du darfst mir nun Bescheid geben, dass du deinen Archetyp gefunden hast und wir sprechen in den nächsten Tagen darüber, welcher sich wahrer anfühlt.`;
   }
 
   const rankRows = ranked.map(r=>{
