@@ -136,11 +136,11 @@ const QUESTIONS = [
     {t:"Etwas Besonderes liegt in der Luft, Blicke wenden sich ihr zu.", s:{liebhaber:1, magier:1}},
     {t:"Sie übernimmt ruhig und selbstverständlich die Führung.", s:{herrscher:1, held:1}},
   ]},
-  {phase:1, q:"Was sollen die Menschen in diesem Raum am liebsten über euch sagen?", o:[
+  {phase:1, q:"Was sollen die Menschen in diesem Raum am liebsten über deine Marke sagen?", o:[
     {t:"„Da bin ich sicher und gut aufgehoben.“", s:{fuersorger:1, unschuldige:1}},
-    {t:"„Die bringen mich weiter — über mich hinaus.“", s:{held:1, weise:1}},
-    {t:"„Die sind anders. Die trauen sich was.“", s:{rebell:1, entdecker:1}},
-    {t:"„Mit denen ist das Leben schöner und leichter.“", s:{liebhaber:1, narr:1}},
+    {t:"„Sie bringt mich weiter — über mich hinaus.“", s:{held:1, weise:1}},
+    {t:"„Sie ist anders. Sie traut sich was.“", s:{rebell:1, entdecker:1}},
+    {t:"„Mit ihr ist das Leben schöner und leichter.“", s:{liebhaber:1, narr:1}},
   ]},
   {phase:1, q:"Welcher Satz fühlt sich am meisten nach dir an?", o:[
     {t:"„Das Gute ist ganz nah.“", s:{unschuldige:2}},
@@ -148,13 +148,13 @@ const QUESTIONS = [
     {t:"„Lass dich nicht einsperren.“", s:{entdecker:2}},
     {t:"„Wo ein Wille ist, ist ein Weg.“", s:{held:2}},
   ]},
-  {phase:1, q:"Imagine: Ein freier Nachmittag mit eurer Marke — was tut ihr?", o:[
+  {phase:1, q:"Imagine: Ein freier Nachmittag mit deiner Marke — was tut ihr?", o:[
     {t:"Etwas gestalten, bauen, werkeln.", s:{schoepfer:2}},
     {t:"Raus, etwas Neues entdecken.", s:{entdecker:2}},
     {t:"Wissen vertiefen, ein gutes Buch.", s:{weise:2}},
     {t:"Zeit mit den Liebsten, gut essen.", s:{liebhaber:1, jedermann:1}},
   ]},
-  {phase:1, q:"Wie redet ihr mit euch anvertrauten Menschen?", o:[
+  {phase:1, q:"Wie redest du mit dir anvertrauten Menschen?", o:[
     {t:"Warm und fürsorglich, wie eine gute Freundin.", s:{fuersorger:2}},
     {t:"Klar und souverän, mit Haltung.", s:{herrscher:2}},
     {t:"Verspielt und mit Augenzwinkern.", s:{narr:2}},
@@ -166,11 +166,11 @@ const QUESTIONS = [
     {t:"Stillstand und Mittelmäßigkeit.", s:{held:1, magier:1}},
     {t:"Unwahrheit und Halbwissen.", s:{weise:2}},
   ]},
-  {phase:1, q:"Welches Versprechen gebt ihr am liebsten?", o:[
-    {t:"Bei uns bist du behütet.", s:{fuersorger:1, unschuldige:1}},
-    {t:"Bei uns wächst du.", s:{held:1, weise:1}},
-    {t:"Bei uns wird etwas Besonderes möglich.", s:{magier:1, schoepfer:1}},
-    {t:"Bei uns gehörst du dazu.", s:{jedermann:1, liebhaber:1}},
+  {phase:1, q:"Welches Versprechen gibst du am Liebsten?", o:[
+    {t:"Bei mir bist du behütet.", s:{fuersorger:1, unschuldige:1}},
+    {t:"Bei mir wächst du.", s:{held:1, weise:1}},
+    {t:"Bei mir wird etwas Besonderes möglich.", s:{magier:1, schoepfer:1}},
+    {t:"Bei mir gehörst du dazu.", s:{jedermann:1, liebhaber:1}},
   ]},
   {phase:1, q:"Bauchgefühl: welches Bild zieht dich als Marke an?", o:[
     {t:"Eine warme Küche, Licht, Menschen.", s:{fuersorger:1, jedermann:1}},
@@ -220,7 +220,7 @@ function renderIntro(){
   setProgress(0,1);
   content.className = "content intro";
   content.innerHTML = `
-    <div class="phase-tag">Welcher Archetyp ist eure Marke?</div>
+    <div class="phase-tag">Welcher Archetyp ist deine Marke?</div>
     <h1>Erst der<br>Bauch.</h1>
     <div class="sub">Dann der Kopf.</div>
     <p>Dieses Quiz führt dich in zwei Schritten zu deinem Marken-Archetyp. Folge zuerst deinem Instinkt — antworte intuiv, ohne groß darüber nachzudenken. Danach folgen Fragen, die dein Bauchgefühl bestätigen oder sanft verschieben.</p>
@@ -265,7 +265,7 @@ function renderInterstitial(){
     <div class="kicker">Dein Bauch zeigt auf …</div>
     <h1 class="name">${a.name}</h1>
     <p style="font-family:var(--f-head);font-style:italic;font-size:clamp(18px,2.6vw,24px);margin:6px 0 18px">${a.core}</p>
-    <p>Schön. Halte dieses Gefühl kurz fest. Jetzt kommen drei Fragen für den Kopf — sie prüfen, ob dein Instinkt trägt oder euch zu einem Nachbarn führt.</p>
+    <p>Schön. Halte dieses Gefühl kurz fest. Jetzt kommen drei Fragen für den Kopf — sie prüfen, ob dein Instinkt trägt oder dich zu einem Nachbarn führt.</p>
     <button class="btn" id="cont">Weiter zum Kopf</button>
   `;
   document.getElementById('cont').onclick = ()=>{ renderQuestion(); };
@@ -282,7 +282,7 @@ function renderResult(){
 
   let narrative;
   if(winner === bauchTop){
-    narrative = `Bauch und Kopf sind sich einig: <strong>${a.name}</strong>. Das ist ein starkes Zeichen — eure Marke weiß ziemlich genau, wer sie ist.`;
+    narrative = `Bauch und Kopf sind sich einig: <strong>${a.name}</strong>. Das ist ein starkes Zeichen — deine Marke weiß ziemlich genau, wer sie ist.`;
   } else {
     narrative = `Spannend: Dein Bauch zeigte zuerst auf <em>${ARCH[bauchTop].name}</em>. Nach den Kopf-Fragen steht aber <strong>${a.name}</strong> ganz vorne. Beide stecken in dir — du darfst mir nun Bescheid geben, dass du deinen Archetyp gefunden hast und wir sprechen in den nächsten Tagen darüber, welcher sich wahrer anfühlt.`;
   }
